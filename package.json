@@ -1,0 +1,30 @@
+{
+  "name": "portscanner",
+  "version": "1.0.0",
+  "description": "A script to scan open ports of an ip",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "ts-node-dev --respawn --pretty --transpile-only ./index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuelbento19/port-scanner.git"
+  },
+  "keywords": [
+    "port-scanner"
+  ],
+  "author": "Manuel Canganjo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manuelbento19/port-scanner/issues"
+  },
+  "homepage": "https://github.com/manuelbento19/port-scanner#readme",
+  "dependencies": {
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "ts-node-dev": "^2.0.0"
+  }
+}
