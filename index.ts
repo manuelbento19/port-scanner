@@ -2,10 +2,14 @@ import { Question } from './Source/util/Question';
 import { Scan } from './Source/util/Scan';
 
 async function Get(){
-    const ip = await Question('Endereço IP: ') as any as string;
-    const start = await Question('Porta inicial: ') as any as number;
-    const end = await Question('Porta final: ') as any as number;
+    const ip : string= await Question('Endereço IP: ') as any;
+    const start :number = await Question('Porta inicial: ') as any;
+    const end : number = await Question('Porta final: ') as any ;
 
-    await Scan(ip,{start,end});
+    const result = await Scan(ip,{start,end});
+    console.table(result);
 }
-Get();
+
+(async()=>(
+ await Get()
+))()
