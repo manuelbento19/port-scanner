@@ -1,5 +1,6 @@
 import { Socket, TcpNetConnectOpts } from "net";
 import { Port } from "../types/Port";
+import { GetService } from "./Service";
 
 export function Client({host, port}:TcpNetConnectOpts):Promise<Port>{
 
@@ -9,18 +10,18 @@ export function Client({host, port}:TcpNetConnectOpts):Promise<Port>{
     return new Promise(function(resolve){
         try{
             client.connect({host,port});
-            client.on('ready',()=>{
-                address = {...address,port,state: client.readyState}
+            client.on('ready',async()=>{
+                const service = await GetService({host,port});
+                address = {...address,port,state: client.readyState,service:service}
+
                 client.write('Who are you?');
                 client.end();
             });
-            client.on('data',(message)=>{
-                const service = message.toString().replace(/\r/g,"").trim().split("\n");
-                
-                if(service){
-                    address = {...address,service:service[0].split(' ')[0]}
+            client.on('data',async(message)=>{
+                if(address.service==port.toString()){
+                    const result = message.toString().replace(/\r/g,"").trim().split("\n");
+                    address = {...address,service:result[0].split(' ')[0]}
                 }
-                
                 client.destroy();
             });
             client.on('error',(err)=>{
